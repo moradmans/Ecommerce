@@ -42,10 +42,10 @@ class UserController {
     public function render($action, $data = []) {
         extract($data);
 
-        include "Views/User/$action.php";
+        include "Views/$action.php";
     }
 }
 
-$controller = new HomeController();
+$controller = new UserController();
 $controller->route();
 ?>

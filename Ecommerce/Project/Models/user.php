@@ -76,20 +76,42 @@ class User{
         $conn->query($sql);
 
     }
-    function addUsers($conn, $post) {//does not work 
-        $sql = "INSERT INTO `user` (`fName`, `lName`, `Email`, `Username`, `Password`, `Address`, `Postal_Code`, `Phone_No`, `isNew`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    function addUsers($conn, $post) {
+        $sql = "INSERT INTO `user` (`fName`, `lName`, `Email`, `Username`, `Password`, `Address`, `Postal_Code`, `Phone_No`, `isNew`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, 0)";
         $stmt = $conn->prepare($sql);
     
         if ($stmt) {
-            $stmt->bind_param("sssssssss", $post['fName'], $post['lName'], $post['Email'], $post['Username'], $post['Password'], $post['Address'], $post['Postal_Code'], $post['Phone_No'], $post['isNew']);
-            $stmt->execute();
-            $stmt->close();
+            $stmt->bind_param("sssssssss", $post['fName'], $post['lName'], $post['Email'], $post['Username'], $post['Password'], $post['Address'], $post['Postal_Code'], $post['Phone_No']);
+            if ($stmt->execute()) {
+                $stmt->close();
+                return true; // Registration was successful
+            } else {
+                return false; // Registration failed
+            }
         } else {
             echo "Error preparing SQL statement: " . $conn->error;
+            return false;
         }
     }
+    
 }
 
-
-
+    function authenticate($username, $password) {
+        global $conn;
+        $sql = "SELECT * FROM `user` WHERE `Username` = ? AND `Password` = ?";
+        $stmt = $conn->prepare($sql);
+    
+        if ($stmt) {
+            $stmt->bind_param("ss", $username, $password);
+            $stmt->execute();
+            $result = $stmt->get_result();
+            $user = $result->fetch_assoc();
+            $stmt->close();
+            return $user;
+        } else {
+            echo "Error preparing SQL statement: " . $conn->error;
+            return false;
+        }
+    }
+    
 ?>
