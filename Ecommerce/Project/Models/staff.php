@@ -3,7 +3,7 @@ error_reporting(E_ALL);
 ini_set('display_errors', '1');
 include_once "dbCon.php";
 
-class User{
+class Staff{
     //the data base data
     public $StaffID;
     public $fName;

@@ -1,33 +1,33 @@
 <?php
 
-include_once "Models/user.php";
+include_once "Models/clothing.php";
 
-class UserController {
+class ClothingController {
     public function route() {
         $action = isset($_GET['a']) ? $_GET['a'] : 'index';
 
-        $model = new User();
+        $model = new Clothing();
 
         // Determine the action and call the appropriate method
         switch ($action) {
-            case 'listUsers':
-                $data = $model->listUsers();
+            case 'listClothing':
+                $data = $model->listClothing();
                 break;
-            case 'updateUsers':
+            case 'updateClothing':
                 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-                    $model->updateUsers($_POST);
+                    $model->updateClothing($_POST);
                 }
                 $data = []; // You can customize this based on your needs
                 break;
-            case 'deleteUsers':
+            case 'deleteClothing':
                 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-                    $model->deleteUsers($_POST);
+                    $model->deleteClothing($_POST);
                 }
                 $data = []; // You can customize this based on your needs
                 break;
-            case 'addUsers':
+            case 'addClothing':
                 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-                    $model->addUsers($conn, $_POST); // Assuming $conn is defined elsewhere
+                    $model->addClothings($conn, $_POST); // Assuming $conn is defined elsewhere
                 }
                 $data = []; // You can customize this based on your needs
                 break;
@@ -42,10 +42,10 @@ class UserController {
     public function render($action, $data = []) {
         extract($data);
 
-        include "Views/User/$action.php";
+        include "Views/Clothing/$action.php";
     }
 }
 
-$controller = new HomeController();
+$controller = new ClothingController();
 $controller->route();
 ?>

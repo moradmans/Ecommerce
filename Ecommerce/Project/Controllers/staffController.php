@@ -1,33 +1,33 @@
 <?php
 
-include_once "Models/user.php";
+include_once "Models/staff.php";
 
-class UserController {
+class StaffController {
     public function route() {
         $action = isset($_GET['a']) ? $_GET['a'] : 'index';
 
-        $model = new User();
+        $model = new Staff();
 
         // Determine the action and call the appropriate method
         switch ($action) {
-            case 'listUsers':
-                $data = $model->listUsers();
+            case 'listStaff':
+                $data = $model->listStaff();
                 break;
-            case 'updateUsers':
+            case 'updateStaff':
                 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-                    $model->updateUsers($_POST);
+                    $model->updateStaff($_POST);
                 }
                 $data = []; // You can customize this based on your needs
                 break;
-            case 'deleteUsers':
+            case 'deleteStaff':
                 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-                    $model->deleteUsers($_POST);
+                    $model->deleteStaff($_POST);
                 }
                 $data = []; // You can customize this based on your needs
                 break;
-            case 'addUsers':
+            case 'addStaff':
                 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-                    $model->addUsers($conn, $_POST); // Assuming $conn is defined elsewhere
+                    $model->addStaff($conn, $_POST); // Assuming $conn is defined elsewhere
                 }
                 $data = []; // You can customize this based on your needs
                 break;
@@ -42,7 +42,7 @@ class UserController {
     public function render($action, $data = []) {
         extract($data);
 
-        include "Views/User/$action.php";
+        include "Views/Staff/$action.php";
     }
 }
 

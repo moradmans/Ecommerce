@@ -3,7 +3,7 @@ error_reporting(E_ALL);
 ini_set('display_errors', '1');
 include_once "dbCon.php";
 
-class Product{
+class Suplement{
     //the data base data
     public $SuppID;
     public $Price;
@@ -13,7 +13,7 @@ class Product{
    
     
 
-    public static function listEquipment(){
+    public static function listSuplement(){
         global $conn;
         $list = array();
 
@@ -35,32 +35,32 @@ class Product{
         return $list;
     }
 
-    function updateEquipment($post){
+    function updateSuplement($post){
         global $conn;
 
-        $sql = "UPDATE `equipment` SET `Price` = '".$post['Price']
+        $sql = "UPDATE `suplement` SET `Price` = '".$post['Price']
         ."', `QTY` = '".$post['QTY']
         ."', `Name` = '".$post['Name']
         ."', `Type` = '".$post['Type']
-        ."' WHERE `equipment`.`SuppID` = '" .$post['SuppID']. "';";
+        ."' WHERE `suplement`.`SuppID` = '" .$post['SuppID']. "';";
         $conn->query($sql);
 
        
 
     }
-    function deleteEquipment($post){
+    function deleteSuplement($post){
         global $conn;
 
-        $sql = "DELETE FROM `equipment` WHERE `Price` = '".$post['Price']."'
+        $sql = "DELETE FROM `suplement` WHERE `Price` = '".$post['Price']."'
         AND `QTY` = '".$post['QTY']."' 
         AND `Name` = '".$post['Name']."'
         AND `Type` = '".$post['Type']."'
-        AND  `equipment`.`SuppID` = '".$post['SuppID'] . "';";
+        AND  `suplement`.`SuppID` = '".$post['SuppID'] . "';";
         $conn->query($sql);
 
     }
-    function addEquipment($conn, $post) {//does not work 
-        $sql = "INSERT INTO `equipment` (`Price`, `QTY`, `Name`, `Type`) VALUES (?, ?, ?, ?)";
+    function addSuplement($conn, $post) {//does not work 
+        $sql = "INSERT INTO `suplement` (`Price`, `QTY`, `Name`, `Type`) VALUES (?, ?, ?, ?)";
         $stmt = $conn->prepare($sql);
     
         if ($stmt) {

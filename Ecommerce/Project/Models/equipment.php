@@ -3,7 +3,7 @@ error_reporting(E_ALL);
 ini_set('display_errors', '1');
 include_once "dbCon.php";
 
-class Product{
+class Equipment{
     //the data base data
     public $EquipmentID;
     public $Price;
