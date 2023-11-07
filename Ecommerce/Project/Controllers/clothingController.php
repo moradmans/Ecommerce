@@ -8,7 +8,6 @@ class ClothingController {
 
         $model = new Clothing();
 
-        // Determine the action and call the appropriate method
         switch ($action) {
             case 'listClothing':
                 $data = $model->listClothing();
@@ -17,22 +16,22 @@ class ClothingController {
                 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     $model->updateClothing($_POST);
                 }
-                $data = []; // You can customize this based on your needs
+                $data = []; 
                 break;
             case 'deleteClothing':
                 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     $model->deleteClothing($_POST);
                 }
-                $data = []; // You can customize this based on your needs
+                $data = []; 
                 break;
             case 'addClothing':
                 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-                    $model->addClothings($conn, $_POST); // Assuming $conn is defined elsewhere
+                    $model->addClothings($conn, $_POST); 
                 }
-                $data = []; // You can customize this based on your needs
+                $data = []; 
                 break;
             default:
-                $data = []; // You can customize this based on your needs
+                $data = []; 
                 break;
         }
 

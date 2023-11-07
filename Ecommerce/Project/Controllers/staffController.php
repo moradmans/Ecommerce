@@ -8,7 +8,6 @@ class StaffController {
 
         $model = new Staff();
 
-        // Determine the action and call the appropriate method
         switch ($action) {
             case 'listStaff':
                 $data = $model->listStaff();
@@ -17,22 +16,22 @@ class StaffController {
                 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     $model->updateStaff($_POST);
                 }
-                $data = []; // You can customize this based on your needs
+                $data = []; 
                 break;
             case 'deleteStaff':
                 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     $model->deleteStaff($_POST);
                 }
-                $data = []; // You can customize this based on your needs
+                $data = []; 
                 break;
             case 'addStaff':
                 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-                    $model->addStaff($conn, $_POST); // Assuming $conn is defined elsewhere
+                    $model->addStaff($conn, $_POST); 
                 }
-                $data = []; // You can customize this based on your needs
+                $data = []; 
                 break;
             default:
-                $data = []; // You can customize this based on your needs
+                $data = []; 
                 break;
         }
 

@@ -1,37 +1,35 @@
 <?php
-include_once "Models/user.php";
+include_once "Models/User.php";
 
 class RegisterController {
     public function route() {
-        $action = isset($_GET['a']) ? $_GET['a'] : 'index';
+        $action = isset($_GET['action']) ? $_GET['action'] : 'index';
 
         if ($action === 'register') {
             $this->register();
         } else {
-            // Handle other actions or show a registration form
-            $this->render('register');
+            $this->render('register_form');
         }
     }
 
     public function register() {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $model = new User();
-            $registrationResult = $model->addUsers($_POST);
-
-            if ($registrationResult === true) {
-                // Registration successful
-                header("Location: index.php?controller=index&action=index");
+            $result = $model->addUsers($_POST); 
+            
+            if ($result === true) {
+                header("Location: index.php"); 
             } else {
-                // Registration failed, show an error message or redirect to the registration page
                 echo "Registration failed. Please try again.";
             }
         }
     }
 
-    public function render($action, $data = []) {
-        extract($data);
-
-        include "Views/$action.php";
+    public function render($view) {
+        include "Views/$view.php"; 
     }
 }
+
+$controller = new RegisterController();
+$controller->route();
 ?>

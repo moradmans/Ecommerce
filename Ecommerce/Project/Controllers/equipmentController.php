@@ -8,7 +8,7 @@ class EquipmentController {
 
         $model = new Equipment();
 
-        // Determine the action and call the appropriate method
+
         switch ($action) {
             case 'listEquipment':
                 $data = $model->listEquipment();
@@ -17,22 +17,22 @@ class EquipmentController {
                 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     $model->updateEquipment($_POST);
                 }
-                $data = []; // You can customize this based on your needs
+                $data = []; 
                 break;
             case 'deleteEquipment':
                 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     $model->deleteEquipment($_POST);
                 }
-                $data = []; // You can customize this based on your needs
+                $data = []; 
                 break;
             case 'addEquipment':
                 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     $model->addEquipment($conn, $_POST); // Assuming $conn is defined elsewhere
                 }
-                $data = []; // You can customize this based on your needs
+                $data = []; 
                 break;
             default:
-                $data = []; // You can customize this based on your needs
+                $data = [];
                 break;
         }
 

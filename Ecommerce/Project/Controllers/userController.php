@@ -8,7 +8,6 @@ class UserController {
 
         $model = new User();
 
-        // Determine the action and call the appropriate method
         switch ($action) {
             case 'listUsers':
                 $data = $model->listUsers();
@@ -17,22 +16,22 @@ class UserController {
                 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     $model->updateUsers($_POST);
                 }
-                $data = []; // You can customize this based on your needs
+                $data = []; 
                 break;
             case 'deleteUsers':
                 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     $model->deleteUsers($_POST);
                 }
-                $data = []; // You can customize this based on your needs
+                $data = []; 
                 break;
             case 'addUsers':
                 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-                    $model->addUsers($conn, $_POST); // Assuming $conn is defined elsewhere
+                    $model->addUsers($conn, $_POST);
                 }
-                $data = []; // You can customize this based on your needs
+                $data = [];
                 break;
             default:
-                $data = []; // You can customize this based on your needs
+                $data = []; 
                 break;
         }
 

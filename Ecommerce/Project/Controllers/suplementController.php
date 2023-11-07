@@ -8,7 +8,7 @@ class SuplementController {
 
         $model = new Suplement();
 
-        // Determine the action and call the appropriate method
+       
         switch ($action) {
             case 'listSuplement':
                 $data = $model->listSuplement();
@@ -17,22 +17,22 @@ class SuplementController {
                 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     $model->updateSuplement($_POST);
                 }
-                $data = []; // You can customize this based on your needs
+                $data = []; 
                 break;
             case 'deleteSuplement':
                 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     $model->deleteSuplement($_POST);
                 }
-                $data = []; // You can customize this based on your needs
+                $data = [];
                 break;
             case 'addSuplement':
                 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-                    $model->addSuplement($conn, $_POST); // Assuming $conn is defined elsewhere
+                    $model->addSuplement($conn, $_POST);
                 }
-                $data = []; // You can customize this based on your needs
+                $data = [];
                 break;
             default:
-                $data = []; // You can customize this based on your needs
+                $data = []; 
                 break;
         }
 

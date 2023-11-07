@@ -10,7 +10,7 @@ class LoginController {
         if ($action === 'login') {
             $this->login();
         } else {
-            // Handle other actions or show a login form
+          
             $this->render('login');
         }
     }
@@ -24,11 +24,10 @@ class LoginController {
             $user = $model->authenticate($username, $password);
 
             if ($user) {
-                // Successfully logged in
-                // You can set a session or redirect to another page
+                
                 header("Location: welcome.php");
             } else {
-                // Failed login, show an error message or redirect to login page
+              
                 echo "Invalid username or password. Please try again.";
             }
         }

@@ -76,23 +76,35 @@ class User{
         $conn->query($sql);
 
     }
-    function addUsers($conn, $post) {
-        $sql = "INSERT INTO `user` (`fName`, `lName`, `Email`, `Username`, `Password`, `Address`, `Postal_Code`, `Phone_No`, `isNew`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, 0)";
+    public function addUsers($post) {
+        global $conn;
+    
+        // var_dump the $post array
+        var_dump($post);
+    
+        $sql = "INSERT INTO user (fName, lName, Email, Username, Password, Address, Postal_Code, Phone_No, isNew) VALUES (?, ?, ?, ?, md5(?), ?, ?, ?, ?)";
         $stmt = $conn->prepare($sql);
     
         if ($stmt) {
-            $stmt->bind_param("sssssssss", $post['fName'], $post['lName'], $post['Email'], $post['Username'], $post['Password'], $post['Address'], $post['Postal_Code'], $post['Phone_No']);
+            $isNew = 0;
+            $stmt->bind_param("ssssssssi", $post['fName'], $post['lName'], $post['Email'], $post['Username'], $post['Password'], $post['Address'], $post['Postal_Code'], $post['Phone_No'], $isNew);
+    
+            // Execute the SQL statement
             if ($stmt->execute()) {
-                $stmt->close();
-                return true; // Registration was successful
+                return true;
             } else {
-                return false; // Registration failed
+                error_log("Registration failed: " . $stmt->error);
+                return false;
             }
+    
+            $stmt->close();
         } else {
-            echo "Error preparing SQL statement: " . $conn->error;
+            error_log("Error preparing SQL statement: " . $conn->error);
             return false;
         }
     }
+    
+
     
 }
 
