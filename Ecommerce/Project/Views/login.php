@@ -1,3 +1,4 @@
+
 <!-- Views/Login/login_form.php -->
 <html lang="en">
 <head>
@@ -11,7 +12,7 @@
     <div class="container mt-5">
         <div class="row justify-content-center">
             <div class="col-md-6">
-                <form action="index.php?controller=login&action=login" method="post">
+                <form action="homepage.php?controller=login&action=login" method="post">
                     <div class="card">
                         <div class="card-header">
                             <h5 class="mb-0">Login</h5>
@@ -28,7 +29,7 @@
                         </div>
                         <div class="card-footer">
                             <button type="submit" class="btn btn-primary" name="submit" value="Login">Login</button>
-                            <label class="ml-2">Don't have an account? <a href="index.php?controller=register&action=register">Register</a></label>
+                            <label class="ml-2">Don't have an account? <a href="register.php?controller=register&action=register">Register</a></label>
                         </div>
                     </div>
                 </form>
