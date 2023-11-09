@@ -15,33 +15,6 @@ class User{
     public $Phone_No;
     public $isNew;
     
-
-    public static function listUsers(){
-        global $conn;
-        $list = array();
-
-        $sql = "SELECT * FROM user";
-        $res = $conn->query($sql);
-
-        while($row = $res->fetch_assoc()){
-            $product = new User();
-            $product->userId = $row['userID'];
-            $product->fName = $row['fName'];
-            $product->lName = $row['lName'];
-            $product->Email = $row['Email'];
-            $product->Username = $row['Username'];
-            $product->Password = $row['Password'];
-            $product->Address = $row['Address'];
-            $product->Postal_Code = $row['Postal_Code'];
-            $product->Phone_No = $row['Phone_No'];
-            $product->isNew = $row['isNew'];
-
-            array_push($list, $product);
-        }
-
-        return $list;
-    }
-
     function updateUsers($post){
         global $conn;
 

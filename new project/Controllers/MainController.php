@@ -1,6 +1,6 @@
 <?php
 
-include_once "Models/Main.php";
+include_once "Models/main.php";
 
 class MainController {
     public function route() {
