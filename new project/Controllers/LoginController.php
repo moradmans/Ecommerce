@@ -1,8 +1,4 @@
 <?php
-// Controllers/RegisterController.php
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
-
 // Controllers/LoginController.php
 
 include_once "Models/login.php";
@@ -22,12 +18,18 @@ class LoginController {
     }
 
     public function login() {
+        $loginError = false;
+
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $model = new User();
             $loginResult = $model->loginUser($_POST);
     
             if ($loginResult === true) {
-                // Login successful, redirect to the main page
+                // Login successful, start a session and store user information
+                session_start();
+                $_SESSION['username'] = $_POST['username'];
+                
+                // Redirect to the main page
                 header('Location: index.php?controller=main');
                 exit;
             } else {
@@ -37,9 +39,8 @@ class LoginController {
         }
     
         // Display the login form
-        $this->render('Login/login', ['loginError' => $loginError ?? false]);
+        $this->render('Login/login', ['loginError' => $loginError]);
     }
-    
 
     public function render($view, $data = []) {
         extract($data);
@@ -47,6 +48,4 @@ class LoginController {
         include "Views/$view.php";
     }
 }
-
-
 ?>

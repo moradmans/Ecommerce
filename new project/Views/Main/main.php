@@ -136,6 +136,7 @@ ini_set('display_errors', 1);
 
                 <div class="user-dropdown">
                     <i class="fas fa-user"></i> <!-- User icon -->
+                    <span><?= isset($username) ? $username : 'Guest'; ?></span>
                     <ul class="user-dropdown-menu">
                         <li class="submenu">
                             <a href="#">Logout</a>
@@ -153,6 +154,7 @@ ini_set('display_errors', 1);
         <p>Your path to a healthier you starts here.</p>
     </section>
     <section class="content">
+        <!-- ... your existing content ... -->
     </section>
 
     <!-- Font Awesome Icons -->
