@@ -127,7 +127,7 @@ ini_set('display_errors', 1);
                     </ul>
                 </li>
                 <li><a href="#">Services</a></li>
-                <li><a href="#">Nearby Gym</a></li>
+                <li><a href="index.php?controller=nearByGyms">Nearby Gym</a></li>
                 <li><a href="#">Contact</a></li>
             </ul>
 
