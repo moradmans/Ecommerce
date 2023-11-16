@@ -8,7 +8,7 @@ ini_set('display_errors', 1);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Gym</title>
-    <link rel="stylesheet" href="../css/styles.css"> 
+
     <style>
         body {
             font-family: 'Arial', sans-serif;
@@ -111,7 +111,7 @@ ini_set('display_errors', 1);
     <header>
         <nav>
             <ul class="nav-menu">
-                <li><a href="homepage.php">Home</a></li>
+                <li><a href="index.php?controller=main">Home</a></li>
                 <li class="dropdown">
                     <a href="#">Products</a>
                     <ul class="dropdown-menu">
@@ -136,15 +136,19 @@ ini_set('display_errors', 1);
 
                 <div class="user-dropdown">
                     <i class="fas fa-user"></i> <!-- User icon -->
-                    <span><?= isset($username) ? $username : 'Guest'; ?></span>
-                    <ul class="user-dropdown-menu">
-                        <li class="submenu">
-                            <a href="#">Logout</a>
-                        </li>
-                        <li class="submenu">
-                            <a href="#">Details</a>
-                        </li>
-                    </ul>
+                    <?php if (isset($username)) : ?>
+                        <span><?= $username; ?></span>
+                        <ul class="user-dropdown-menu">
+                            <li class="submenu">
+                                <a href="#">Logout</a>
+                            </li>
+                            <li class="submenu">
+                                <a href="#">Settings</a> <!-- Add a link to user settings -->
+                            </li>
+                        </ul>
+                    <?php else : ?>
+                        <span>Guest</span>
+                    <?php endif; ?>
                 </div>
             </div>
         </nav>

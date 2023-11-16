@@ -6,19 +6,109 @@
     <title>Google Maps Api</title>
 
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-        }
-
         h1 {
             text-align: center;
         }
 
         #map {
-            height: 400px; /* Adjust the height as needed */
-            width: 100%;
+            height: 60vh; /* Set the desired height, adjust as needed */
+    margin: 2rem;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    overflow: hidden;
+        }
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-menu {
+            list-style: none;
+            display: flex;
+            gap: 1rem;
+        }
+
+        .nav-menu a {
+            text-decoration: none;
+            color: #fff;
+            font-weight: bold;
+        }
+
+        .dropdown {
+            position: relative;
+        }
+
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            background-color: #333;
+            list-style: none;
+            padding: 0.5rem;
+            border-radius: 5px;
+            z-index: 1;
+        }
+
+        .dropdown:hover .dropdown-menu {
+            display: block;
+        }
+
+        .submenu {
+            margin: 0.3rem 0;
+        }
+
+        .hero {
+            background-color: #f0f0f0;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .hero h1 {
+            color: #333;
+        }
+
+        .content {
+            padding: 2rem;
+        }
+
+        .icons {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .user-dropdown {
+            position: relative;
+            cursor: pointer;
+        }
+
+        .user-dropdown-menu {
+            display: none;
+            position: absolute;
+            background-color: #333;
+            list-style: none;
+            padding: 0.5rem;
+            border-radius: 5px;
+            z-index: 1;
+        }
+
+        .user-dropdown:hover .user-dropdown-menu {
+            display: block;
         }
 
         /* Add any additional styles you need for your specific design */
@@ -26,7 +116,47 @@
 </head>
 
 <body>
-    <h1>Google Maps</h1>
+    <header>
+        <nav>
+            <ul class="nav-menu">
+                <li><a href="index.php?controller=main">Home</a></li>
+                <li class="dropdown">
+                    <a href="#">Products</a>
+                    <ul class="dropdown-menu">
+                        <li class="submenu">
+                            <a href="clothing.php">Clothing</a>
+                        </li>
+                        <li class="submenu">
+                            <a href="equipments.php">Equipment</a>
+                        </li>
+                        <li class="submenu">
+                            <a href="supplements.php">Supplements</a>
+                        </li>
+                    </ul>
+                </li>
+                <li><a href="#">Services</a></li>
+                <li><a href="index.php?controller=nearByGyms">Nearby Gym</a></li>
+                <li><a href="#">Contact</a></li>
+            </ul>
+
+            <div class="icons">
+                <i class="fas fa-shopping-cart"></i> <!-- Shopping cart icon -->
+
+                <div class="user-dropdown">
+                    <i class="fas fa-user"></i> <!-- User icon -->
+                    <span><?= isset($username) ? $username : 'Guest'; ?></span>
+                    <ul class="user-dropdown-menu">
+                        <li class="submenu">
+                            <a href="#">Logout</a>
+                        </li>
+                        <li class="submenu">
+                            <a href="#">Settings</a> <!-- Add a link to user settings -->
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
 
     <div id="map"></div>
 
