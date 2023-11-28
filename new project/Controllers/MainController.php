@@ -17,9 +17,9 @@ class MainController {
        
         // Retrieve user information from the session
         $username = $_SESSION['username'];
-       // var_dump($_SESSION);
+        $isAdmin = isset($_SESSION['type']) && ($_SESSION['type'] === 'admin');
         // Pass the username to the view
-        $this->render('Main/main', ['username' => $username]);
+        $this->render('Main/main', ['username' => $username, 'isAdmin' => $isAdmin]);
 
         if (isset($_POST['logout'])) {
             // Destroy the session
@@ -29,6 +29,7 @@ class MainController {
             $this->render('Main/main');
             exit();
         }
+        
     }
 
     public function render($view, $data = []) {

@@ -11,10 +11,12 @@ ini_set('display_errors', 1);
     <link rel="stylesheet" href="../../css/styles.css"> 
     <style>
         body {
-            font-family: 'Arial', sans-serif;
-            box-sizing: border-box;
+            background-color: #f0f0f0;
+            background-image: url('images/images.png');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
             margin: 0;
-            padding: 0;
             font-family: 'Arial', sans-serif;
             box-sizing: border-box;
             color: #FFFFFF;
@@ -70,21 +72,24 @@ ini_set('display_errors', 1);
         }
 
         .hero {
-            background-color: #f0f0f0;
-            padding: 2rem;
-            text-align: center;
-            background-image: url('../../images/homepageBackground.jpg');
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
-            padding: 2rem;
-            text-align: center;
-            height: 80vh; /* Set the height to 100% of the viewport height */
-            margin: 0; /* Remove default margin */
+            height: 80vh;
+            margin: 0;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
+        }
+
+        /* Add a semi-transparent overlay to improve text readability */
+        .hero::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            background: rgba(0, 0, 0, 0.5); /* Adjust the alpha value to control transparency */
+            z-index: -1; /* Place the overlay behind the content */
         }
 
         .content {
@@ -120,7 +125,6 @@ ini_set('display_errors', 1);
 
 
 
-
     </style>
     <script src="https://kit.fontawesome.com/your-font-awesome-kit-id.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-pz7tG9HUJX1X4aJS21Z2d5q4he3GpcD8ZKu6+TMdA+VA+U/ETI1t5oVL+FLdPGW8Guc7XYb+JMn3uLD+tkXfhw==" crossorigin="anonymous" />
@@ -150,6 +154,9 @@ ini_set('display_errors', 1);
                 <li><a href="../services.php">Services</a></li>
                 <li><a href="index.php?controller=nearByGyms">Nearby Gym</a></li>
                 <li><a href="index.php?controller=contact">Contact</a></li>
+                <?php if ($isAdmin) : ?>
+                    <li><a href="index.php?controller=information&action=getUsers">Information</a></li>
+                 <?php endif; ?>
             </ul>
         </nav>
         <div class="icons">
