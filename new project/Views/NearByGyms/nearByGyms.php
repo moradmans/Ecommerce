@@ -113,56 +113,60 @@
 
         /* Add any additional styles you need for your specific design */
     </style>
+    <script src="https://kit.fontawesome.com/your-font-awesome-kit-id.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-pz7tG9HUJX1X4aJS21Z2d5q4he3GpcD8ZKu6+TMdA+VA+U/ETI1t5oVL+FLdPGW8Guc7XYb+JMn3uLD+tkXfhw==" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
 </head>
-
 <body>
-    <header>
+
+<header>
         <nav>
             <ul class="nav-menu">
                 <li><a href="index.php?controller=main">Home</a></li>
                 <li class="dropdown">
-                    <a href="#">Products</a>
+                    <a href="">Products</a>
                     <ul class="dropdown-menu">
                         <li class="submenu">
-                            <a href="clothing.php">Clothing</a>
+                            <a href="index.php?controller=clothing">Clothing</a>
                         </li>
                         <li class="submenu">
-                            <a href="equipments.php">Equipment</a>
+                            <a href="../equipments.php">Equipment</a>
                         </li>
                         <li class="submenu">
-                            <a href="supplements.php">Supplements</a>
+                            <a href="../supplements.php">Supplements</a>
                         </li>
                     </ul>
                 </li>
-                <li><a href="#">Services</a></li>
+                <li><a href="../services.php">Services</a></li>
                 <li><a href="index.php?controller=nearByGyms">Nearby Gym</a></li>
-                <li><a href="#">Contact</a></li>
+                <li><a href="index.php?controller=contact">Contact</a></li>
             </ul>
-
-            <div class="icons">
-                <i class="fas fa-shopping-cart"></i> <!-- Shopping cart icon -->
-
-                <div class="user-dropdown">
-                    <i class="fas fa-user"></i> <!-- User icon -->
-                    <span><?= isset($username) ? $username : 'Guest'; ?></span>
-                    <ul class="user-dropdown-menu">
-                        <li class="submenu">
-                            <a href="#">Logout</a>
-                        </li>
-                        <li class="submenu">
-                            <a href="#">Settings</a> <!-- Add a link to user settings -->
-                        </li>
-                    </ul>
-                </div>
-            </div>
         </nav>
+        <div class="icons">
+    <i class="fas fa-shopping-cart"></i> <!-- Shopping cart icon -->
+
+    <div class="user-dropdown">
+    <i class="fas fa-user"></i> <!-- User icon -->
+    <span><?= isset($username) ? $username : 'Guest'; ?></span>
+    <ul class="user-dropdown-menu">
+        <li class="submenu">
+            <?php if (isset($username)) : ?>
+                <a href="index.php?controller=login&action=logout">Log out</a>
+            <?php else : ?>
+                <a href="index.php?controller=login">Login</a>
+            <?php endif; ?>
+        </li>
+        <li class="submenu">
+            <a href="index.php?controller=details">Details</a>
+        </li>
+    </ul>
+</div>
     </header>
 
     <div id="map"></div>
 
-    <script defer
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCepA0MZGpUmihllM7FOFJ1ocRUK7xelWU&callback=initMap">
-    </script>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCepA0MZGpUmihllM7FOFJ1ocRUK7xelWU&callback=initMap"></script>
     <script>
         function initMap() {
             // Try HTML5 geolocation
@@ -183,35 +187,43 @@
                         // New Map
                         var map = new google.maps.Map(document.getElementById("map"), options);
 
-                        // Marker
-                        let MarkerArray = [
-                            {location:{lat: 45.497570, lng: -73.706110}, content: `<h2>Golds Gym</h2>`},
-                            {location:{lat: 45.517200, lng: -73.644560},content: `<h2>Studio 1 Gym</h2>`},
-                            {location:{lat: 45.532320, lng: -73.655210}, content: `<h2>Worlds Gym</h2>`}
-                        ];
+                        // Fetch gym data from the database
+                        $.ajax({
+                            url: 'getGyms.php', // Replace with the actual path to your PHP script
+                            type: 'GET',
+                            dataType: 'json',
+                            success: function(data) {
+                                // Loop through the gym data and add markers
+                                data.forEach(function(gym) {
+                                    var gymLocation = {
+                                        lat: parseFloat(gym.lat),
+                                        lng: parseFloat(gym.lng)
+                                    };
 
-                        // Loop through markers
-                        for (let i = 0; i < MarkerArray.length; i++) {
-                            addMarker(MarkerArray[i]);
-                        }
+                                    addMarker(gymLocation, gym.name, map);
+                                });
+                            },
+                            error: function(error) {
+                                console.error('Error fetching gym data: ', error);
+                            }
+                        });
 
-                        // Add Marker
-                        function addMarker(property) {
-                            const marker = new google.maps.Marker({
-                                position: property.location,
-                                map: map
-                                // icon: property.imageIcon
+                        // Function to add a marker
+                        function addMarker(location, name, map) {
+                            var marker = new google.maps.Marker({
+                                position: location,
+                                map: map,
+                                title: name // You can customize the title of the marker with the gym name
                             });
 
-                            if (property.content) {
-                                const detailWindow = new google.maps.InfoWindow({
-                                    content: property.content
-                                });
+                            // You can add an info window with additional information if needed
+                            var infoWindow = new google.maps.InfoWindow({
+                                content: '<h3>' + name + '</h3>'
+                            });
 
-                                marker.addListener("mouseover", () => {
-                                    detailWindow.open(map, marker);
-                                });
-                            }
+                            marker.addListener('click', function() {
+                                infoWindow.open(map, marker);
+                            });
                         }
                     },
                     () => {
@@ -231,6 +243,22 @@
             }
         }
     </script>
+
+
+
+    <?php if ($isAdminOrStaff) : ?>
+        <div id="gymForm">
+            <h2>Add a New Gym</h2>
+            <form action="index.php?controller=nearByGyms&action=add" method="post" onsubmit="addGym(event)">
+                <label for="gymName">Name of the Gym:</label>
+                <input type="text" id="gymName" name="gymName" required>
+                <label for="gymAddress">Gym Address:</label>
+                <input type="text" id="gymAddress" name="gymAddress" required>
+                <button type="submit" name="addGym">Add Gym</button>
+            </form>
+        </div>
+    <?php endif; ?>
+
     <script src="/app.js"></script>
 </body>
 </html>

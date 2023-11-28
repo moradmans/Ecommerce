@@ -6,7 +6,6 @@ include_once "dbCon.php";
 
 class LoginController {
     public function route() {
-        
         $action = isset($_GET['action']) ? $_GET['action'] : 'index';
 
         if ($action === 'login') {
@@ -28,6 +27,10 @@ class LoginController {
                 // Login successful, start a session and store user information
                 session_start();
                 $_SESSION['username'] = $_POST['username'];
+
+                // Fetch user type from the database and store it in the session
+                $userType = $model->getUserType($_POST['username']); // Assuming a method like getUserType exists in your User model
+                $_SESSION['type'] = $userType;
                 
                 // Redirect to the main page
                 header('Location: index.php?controller=main');

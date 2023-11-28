@@ -155,55 +155,54 @@ ini_set('display_errors', 1);
             cursor: pointer;
         }
     </style>
-
+    <script src="https://kit.fontawesome.com/your-font-awesome-kit-id.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-pz7tG9HUJX1X4aJS21Z2d5q4he3GpcD8ZKu6+TMdA+VA+U/ETI1t5oVL+FLdPGW8Guc7XYb+JMn3uLD+tkXfhw==" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
 
 </head>
 <body>
-    <header>
+<header>
         <nav>
             <ul class="nav-menu">
                 <li><a href="index.php?controller=main">Home</a></li>
                 <li class="dropdown">
-                    <a href="#">Products</a>
+                    <a href="">Products</a>
                     <ul class="dropdown-menu">
                         <li class="submenu">
-                            <a href="clothing.php">Clothing</a>
+                            <a href="index.php?controller=clothing">Clothing</a>
                         </li>
                         <li class="submenu">
-                            <a href="equipments.php">Equipment</a>
+                            <a href="../equipments.php">Equipment</a>
                         </li>
                         <li class="submenu">
-                            <a href="supplements.php">Supplements</a>
+                            <a href="../supplements.php">Supplements</a>
                         </li>
                     </ul>
                 </li>
-                <li><a href="#">Services</a></li>
+                <li><a href="../services.php">Services</a></li>
                 <li><a href="index.php?controller=nearByGyms">Nearby Gym</a></li>
                 <li><a href="index.php?controller=contact">Contact</a></li>
             </ul>
-
-            <div class="icons">
-                <i class="fas fa-shopping-cart"></i> 
-
-                <div class="user-dropdown">
-                    <i class="fas fa-user"></i> 
-                    <?php if (isset($username)) : ?>
-                        <span><?= $username; ?></span>
-                        <ul class="user-dropdown-menu">
-                            <li class="submenu">
-                                <a href="#">Logout</a>
-                            </li>
-                            <li class="submenu">
-                                <a href="#">Settings</a> 
-                            </li>
-                        </ul>
-                    <?php else : ?>
-                        <span>Guest</span>
-                    <?php endif; ?>
-                </div>
-            </div>
         </nav>
+        <div class="icons">
+    <i class="fas fa-shopping-cart"></i> <!-- Shopping cart icon -->
+
+    <div class="user-dropdown">
+    <i class="fas fa-user"></i> <!-- User icon -->
+    <span><?= isset($username) ? $username : 'Guest'; ?></span>
+    <ul class="user-dropdown-menu">
+        <li class="submenu">
+            <?php if (isset($username)) : ?>
+                <a href="index.php?controller=login&action=logout">Log out</a>
+            <?php else : ?>
+                <a href="index.php?controller=login">Login</a>
+            <?php endif; ?>
+        </li>
+        <li class="submenu">
+            <a href="index.php?controller=details">Details</a>
+        </li>
+    </ul>
+</div>
     </header>
     <section class="content">
         <div class="contact-container">

@@ -46,7 +46,31 @@ class User{
             echo "Error: " . $conn->error;
         }
     }
-    
+    public function getUserType($username) {
+        global $conn;
+
+        $sql = "SELECT type FROM user WHERE Username = ?";
+        $stmt = $conn->prepare($sql);
+
+        if ($stmt) {
+            $stmt->bind_param("s", $username);
+            $stmt->execute();
+
+            $result = $stmt->get_result();
+            $stmt->close();
+
+            if ($result->num_rows === 1) {
+                $row = $result->fetch_assoc();
+                return $row['type'];
+            } else {
+                return null;
+            }
+        } else {
+            // Handle prepared statement creation error
+            echo "Error: " . $conn->error;
+        }
+    }
+
     
 
 }
