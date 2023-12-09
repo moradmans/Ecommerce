@@ -140,6 +140,9 @@
                 <li><a href="../services.php">Services</a></li>
                 <li><a href="index.php?controller=nearByGyms">Nearby Gym</a></li>
                 <li><a href="index.php?controller=contact">Contact</a></li>
+                <?php if ($isAdmin) : ?>
+                    <li><a href="index.php?controller=information&action=getUsers">Information</a></li>
+                 <?php endif; ?>
             </ul>
         </nav>
         <div class="icons">

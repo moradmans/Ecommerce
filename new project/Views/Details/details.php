@@ -165,37 +165,46 @@
             <ul class="nav-menu">
                 <li><a href="index.php?controller=main">Home</a></li>
                 <li class="dropdown">
-                    <a href="#">Products</a>
+                    <a href="">Products</a>
                     <ul class="dropdown-menu">
-                        <li><a href="index.php?controller=clothing">Clothing</a></li>
-                        <li><a href="../equipments.php">Equipment</a></li>
-                        <li><a href="../supplements.php">Supplements</a></li>
+                        <li class="submenu">
+                            <a href="index.php?controller=clothing">Clothing</a>
+                        </li>
+                        <li class="submenu">
+                            <a href="../equipments.php">Equipment</a>
+                        </li>
+                        <li class="submenu">
+                            <a href="../supplements.php">Supplements</a>
+                        </li>
                     </ul>
                 </li>
                 <li><a href="../services.php">Services</a></li>
                 <li><a href="index.php?controller=nearByGyms">Nearby Gym</a></li>
                 <li><a href="index.php?controller=contact">Contact</a></li>
+                <?php if ($isAdmin) : ?>
+                    <li><a href="index.php?controller=information&action=getUsers">Information</a></li>
+                 <?php endif; ?>
             </ul>
         </nav>
         <div class="icons">
-            <i class="fas fa-shopping-cart"></i>
-            <div class="user-dropdown">
-                <span><?= isset($username) ? $username : 'Guest'; ?></span>
-                <i class="fas fa-user"></i>
-                <ul class="user-dropdown-menu">
-                    <li>
-                        <?php if (isset($username)) : ?>
-                            <a href="index.php?controller=login&action=logout">Log out</a>
-                        <?php else : ?>
-                            <a href="index.php?controller=login">Login</a>
-                        <?php endif; ?>
-                    </li>
-                    <li>
-                        <a href="#">Details</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
+    <i class="fas fa-shopping-cart"></i> <!-- Shopping cart icon -->
+
+    <div class="user-dropdown">
+    <i class="fas fa-user"></i> <!-- User icon -->
+    <span><?= isset($username) ? $username : 'Guest'; ?></span>
+    <ul class="user-dropdown-menu">
+        <li class="submenu">
+            <?php if (isset($username)) : ?>
+                <a href="index.php?controller=login&action=logout">Log out</a>
+            <?php else : ?>
+                <a href="index.php?controller=login">Login</a>
+            <?php endif; ?>
+        </li>
+        <li class="submenu">
+            <a href="index.php?controller=details">Details</a>
+        </li>
+    </ul>
+</div>
     </header>
 
     <?php if ($userData): ?>

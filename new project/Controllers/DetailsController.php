@@ -16,6 +16,8 @@ class DetailsController {
                 header('Location: index.php?controller=login');
                 exit;
             }
+            $username = $_SESSION['username'];
+            $isAdmin = isset($_SESSION['type']) && ($_SESSION['type'] === 'admin');
         } elseif ($action === 'update') {
             $this->updateDetails();
         } else {
@@ -27,9 +29,10 @@ class DetailsController {
         // Fetch user details from the database using the $username
         $userModel = new User();
         $userData = $userModel->getUserDetails($username);
-
+        $username = $_SESSION['username'];
+        $isAdmin = isset($_SESSION['type']) && ($_SESSION['type'] === 'admin');
         // Render the view with user data
-        $this->render('Details/details', ['userData' => $userData, 'username' => $username]);
+        $this->render('Details/details', ['userData' => $userData, 'username' => $username,'isAdmin' => $isAdmin]);
     }
 
     public function updateDetails() {

@@ -178,60 +178,50 @@ ini_set('display_errors', 1);
     </ul>
 </div>
     </header>
-    <section class="content">
-        <h1>User Information</h1>
+    <?php if ($userData): ?>
+        <div class="content">
+            <form method="post" action="index.php?controller=details&action=update">
+                <label for="fName">First Name:</label>
+                <input type="text" id="fName" name="fName" value="<?= $userData['fName']; ?>" required>
 
-        <!-- Display a table for user information -->
-        <table border="1">
-            <tr>
-                <th>User ID</th>
-                <th>First Name</th>
-                <th>Last Name</th>
-                <th>Email</th>
-                <th>Username</th>
-                <th>Password</th>
-                <th>Address</th>
-                <th>Postal Code</th>
-                <th>Phone Number</th>
-                <th>Is New</th>
-                <th>Type</th>
-                <th>Action</th>
-            </tr>
+                <label for="lName">Last Name:</label>
+                <input type="text" id="lName" name="lName" value="<?= $userData['lName']; ?>" required>
 
-            <?php foreach ($users as $user): ?>
-                <tr>
-                    <td><?= $user['userID'] ?></td>
-                    <td><?= $user['fName'] ?></td>
-                    <td><?= $user['lName'] ?></td>
-                    <td><?= $user['Email'] ?></td>
-                    <td><?= $user['Username'] ?></td>
-                    <td><?= $user['Password'] ?></td>
-                    <td><?= $user['Address'] ?></td>
-                    <td><?= $user['Postal_Code'] ?></td>
-                    <td><?= $user['Phone_No'] ?></td>
-                    <td><?= $user['isNew'] ?></td>
-                    <td><?= $user['type'] ?></td>
-                    <td>
-                        <form method="post" action="index.php?controller=update&action=update">
-                            <input type="hidden" name="userID" value="<?= $user['userID'] ?>">
-                            <input type="hidden" name="fName" value="<?= $user['fName'] ?>">
-                            <input type="hidden" name="lName" value="<?= $user['lName'] ?>">
-                            <input type="hidden" name="email" value="<?= $user['Email'] ?>">
-                            <input type="hidden" name="username" value="<?= $user['Username'] ?>">
-                            <input type="hidden" name="password" value="<?= $user['Password'] ?>">
-                            <input type="hidden" name="address" value="<?= $user['Address'] ?>">
-                            <input type="hidden" name="postalCode" value="<?= $user['Postal_Code'] ?>">
-                            <input type="hidden" name="phoneNo" value="<?= $user['Phone_No'] ?>">
-                            <input type="hidden" name="isNew" value="<?= $user['isNew'] ?>">
-                            <input type="hidden" name="type" value="<?= $user['type'] ?>">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" value="<?= $userData['Email']; ?>" required>
 
-                            <button type="submit" name="updateUser">Update</button>
-                        </form>
-                    </td>
-                </tr>
-            <?php endforeach; ?>
-        </table>
-    </section>
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" value="<?= $userData['Username']; ?>" required>
+
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" value="<?= $userData['Password']; ?>" required>
+
+                <label for="address">Address:</label>
+                <input type="text" id="address" name="address" value="<?= $userData['Address']; ?>" required>
+
+                <label for="postalCode">Postal Code:</label>
+                <input type="text" id="postalCode" name="postalCode" value="<?= $userData['Postal_Code']; ?>" required>
+
+                <label for="phoneNo">Phone Number:</label>
+                <input type="text" id="phoneNo" name="phoneNo" value="<?= $userData['Phone_No']; ?>" required>
+
+                <?php if ($_SESSION['type'] === 'admin'): ?>
+                    <label for="type">User Type:</label>
+                    <input type="text" id="type" name="type" value="<?= $userData['type']; ?>" required>
+                <?php endif; ?>
+
+                <button type="submit" action="index.php?controller=information&action=getUser">Update Details</button>
+            </form>
+
+            <?php if (isset($_GET['success']) && $_GET['success'] === 'true'): ?>
+                <p class="text-success">Details updated successfully.</p>
+            <?php endif; ?>
+        </div>
+    <?php else: ?>
+        <div class="hero">
+            <p>User not found.</p>
+        </div>
+    <?php endif; ?>
 
 </body>
 </html>

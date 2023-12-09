@@ -1,4 +1,5 @@
 <?php
+include_once "dbCon.php";
    class User {
     
 
@@ -30,11 +31,6 @@
     public function updateUserDetails($username, $postData) {
         global $conn;
     
-        // Implement the logic to update user details in the database
-        // Use the $username to identify the user
-        // Use the $postData array to get the updated values from the form
-    
-        // Example: Update the email address, username, and other fields
         $newEmail = $postData['email'];
         $newUsername = $postData['username'];
         $newPassword = md5($postData['password']); // Ensure proper security measures for handling passwords

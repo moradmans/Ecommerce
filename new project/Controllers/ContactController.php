@@ -15,8 +15,10 @@ class ContactController {
 
         // Retrieve user information from the session
         $username = $_SESSION['username'];
+        $isAdmin = isset($_SESSION['type']) && ($_SESSION['type'] === 'admin');
+
         //var_dump($_SESSION); // Add this line for debugging
-        $this->render('Contact/contact', ['username' => $username]);
+        $this->render('Contact/contact', ['username' => $username, 'isAdmin' => $isAdmin]);
     }
 
     public function render($view, $data = []) {

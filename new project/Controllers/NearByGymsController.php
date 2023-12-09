@@ -15,12 +15,13 @@ class NearByGymsController {
 
         // Retrieve user information from the session
         $username = $_SESSION['username'];
+        $isAdmin = isset($_SESSION['type']) && ($_SESSION['type'] === 'admin');
 
         // Check if the user type is admin or staff
         $isAdminOrStaff = isset($_SESSION['type']) && ($_SESSION['type'] === 'admin' || $_SESSION['type'] === 'staff');
 
         // Pass the username and isAdminOrStaff to the view
-        $this->render('NearByGyms/nearByGyms', ['username' => $username, 'isAdminOrStaff' => $isAdminOrStaff]);
+        $this->render('NearByGyms/nearByGyms', ['username' => $username, 'isAdmin' => $isAdmin,'isAdminOrStaff' => $isAdminOrStaff]);
 
         if (isset($_POST['logout'])) {
             // Destroy the session
