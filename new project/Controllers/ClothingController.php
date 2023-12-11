@@ -1,8 +1,8 @@
 <?php
-include_once "Models/information.php";
+include_once "Models/clothing.php";
 include_once "dbCon.php";
 
-class InformationController {
+class ClothingController {
     private $users; // Add this property to store users retrieved from the model
 
     public function route() {
@@ -20,27 +20,27 @@ class InformationController {
         $isAdmin = isset($_SESSION['type']) && ($_SESSION['type'] === 'admin');
 
         // Call getUsers to retrieve user information
-        $this->getUsers();
+        $this->getItems();
 
         // Pass the username, isAdmin, and users to the view
-        $this->render('Information/information', ['username' => $username, 'isAdmin' => $isAdmin, 'users' => $this->users]);
+        $this->render('Clothing/clothing', ['username' => $username, 'isAdmin' => $isAdmin, 'users' => $this->users]);
 
         if (isset($_POST['logout'])) {
             // Destroy the session
             session_destroy();
 
             // Redirect to the login page
-            $this->render('Information/information');
+            $this->render('Clothing/clothing');
             exit();
         }
     }
 
     
-    public function getUsers() {
+    public function getItems() {
         // Pass the database connection to the model
         $dbConnection = new mysqli("localhost", "root", "", "ecomdb");
-        $model = new InformationModel($dbConnection); // Update the class name here
-        $this->users = $model->getAllUsers();
+        $model = new ClothingModel($dbConnection); // Update the class name here
+        $this->users = $model->displayItems();
     }
 
 
