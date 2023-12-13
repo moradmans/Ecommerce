@@ -158,97 +158,12 @@ ini_set('display_errors', 1);
     <script src="https://kit.fontawesome.com/your-font-awesome-kit-id.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-pz7tG9HUJX1X4aJS21Z2d5q4he3GpcD8ZKu6+TMdA+VA+U/ETI1t5oVL+FLdPGW8Guc7XYb+JMn3uLD+tkXfhw==" crossorigin="anonymous" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+    <link rel=""stylesheet" href="/css/styles.css">
 
 </head>
 <body>
-<header>
-        <nav>
-            <ul class="nav-menu">
-                <li><a href="index.php?controller=main">Home</a></li>
-                <li class="dropdown">
-                    <a href="">Products</a>
-                    <ul class="dropdown-menu">
-                        <li class="submenu">
-                            <a href="index.php?controller=clothing">Clothing</a>
-                        </li>
-                        <li class="submenu">
-                            <a href="../equipments.php">Equipment</a>
-                        </li>
-                        <li class="submenu">
-                            <a href="../supplements.php">Supplements</a>
-                        </li>
-                    </ul>
-                </li>
-                <li><a href="../services.php">Services</a></li>
-                <li><a href="index.php?controller=nearByGyms">Nearby Gym</a></li>
-                <li><a href="index.php?controller=contact">Contact</a></li>
-                <?php if ($isAdmin) : ?>
-                    <li><a href="index.php?controller=information&action=getUsers">Information</a></li>
-                 <?php endif; ?>
-            </ul>
-        </nav>
-        <div class="icons">
-    <i class="fas fa-shopping-cart"></i> <!-- Shopping cart icon -->
+<?php include 'header.php'; ?>
 
-    <div class="user-dropdown">
-    <i class="fas fa-user"></i> <!-- User icon -->
-    <span><?= isset($username) ? $username : 'Guest'; ?></span>
-    <ul class="user-dropdown-menu">
-        <li class="submenu">
-            <?php if (isset($username)) : ?>
-                <a href="index.php?controller=login&action=logout">Log out</a>
-            <?php else : ?>
-                <a href="index.php?controller=login">Login</a>
-            <?php endif; ?>
-        </li>
-        <li class="submenu">
-            <a href="index.php?controller=details">Details</a>
-        </li>
-    </ul>
-</div>
-    </header>
-        <nav>
-            <ul class="nav-menu">
-                <li><a href="index.php?controller=main">Home</a></li>
-                <li class="dropdown">
-                    <a href="">Products</a>
-                    <ul class="dropdown-menu">
-                        <li class="submenu">
-                            <a href="index.php?controller=clothing">Clothing</a>
-                        </li>
-                        <li class="submenu">
-                            <a href="../equipments.php">Equipment</a>
-                        </li>
-                        <li class="submenu">
-                            <a href="../supplements.php">Supplements</a>
-                        </li>
-                    </ul>
-                </li>
-                <li><a href="../services.php">Services</a></li>
-                <li><a href="index.php?controller=nearByGyms">Nearby Gym</a></li>
-                <li><a href="index.php?controller=contact">Contact</a></li>
-            </ul>
-        </nav>
-        <div class="icons">
-    <i class="fas fa-shopping-cart"></i> <!-- Shopping cart icon -->
-
-    <div class="user-dropdown">
-    <i class="fas fa-user"></i> <!-- User icon -->
-    <span><?= isset($username) ? $username : 'Guest'; ?></span>
-    <ul class="user-dropdown-menu">
-        <li class="submenu">
-            <?php if (isset($username)) : ?>
-                <a href="index.php?controller=login&action=logout">Log out</a>
-            <?php else : ?>
-                <a href="index.php?controller=login">Login</a>
-            <?php endif; ?>
-        </li>
-        <li class="submenu">
-            <a href="index.php?controller=details">Details</a>
-        </li>
-    </ul>
-</div>
-    </header>
     <section class="content">
         <div class="contact-container">
             <div class="contact-info">
@@ -285,6 +200,7 @@ ini_set('display_errors', 1);
         </div>
     </section>
 
-    <script src="https://kit.fontawesome.com/your-font-awesome-kit-id.js" crossorigin="anonymous"></script>
+    <?php include 'footer.php'; ?>
+
 </body>
 </html>

@@ -12,7 +12,7 @@
     <script>
      function addToCart(productId, name, quantity, price) {
     var xhr = new XMLHttpRequest();
-    xhr.open('POST', 'index.php?controller=clothing&action=addToCart', true);
+    xhr.open('POST', 'index.php?controller=equipment&action=addToCart', true);
     xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 
     xhr.onreadystatechange = function () {
@@ -29,7 +29,7 @@
 function showCart() {
     console.log('Basket icon clicked!');
     var xhr = new XMLHttpRequest();
-    xhr.open('GET', 'index.php?controller=clothing&action=addToCart', true);
+    xhr.open('GET', 'index.php?controller=equipment&action=addToCart', true);
 
     xhr.onreadystatechange = function () {
         if (xhr.readyState == 4 && xhr.status == 200) {
@@ -45,7 +45,7 @@ function showCart() {
 }
 function removeFromCart(cartItemId) {
             var xhr = new XMLHttpRequest();
-            xhr.open('POST', 'index.php?controller=clothing&action=removeFromCart', true);
+            xhr.open('POST', 'index.php?controller=equipment&action=removeFromCart', true);
             xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 
             xhr.onreadystatechange = function () {
@@ -76,8 +76,8 @@ function removeFromCart(cartItemId) {
                 // Display the image using data URI with width and height attributes
                 echo "<img src='data:image/jpeg;base64," . base64_encode($user['img']) . "' alt='{$user['Name']}' width='250' height='250'>";
                 echo "<div class='product-title'>{$user['Name']}</div>";
-                echo "<div class='product-price'>\${$user['PRICE']}</div>";
-                echo "<button class='add-to-cart-btn' onclick='addToCart({$user['ProductID']}, \"{$user['Name']}\", 1, {$user['PRICE']})'>Add to Cart</button>";
+                echo "<div class='product-price'>\${$user['Price']}</div>";
+                echo "<button class='add-to-cart-btn' onclick='addToCart({$user['EquipmentID']}, \"{$user['Name']}\", 1, {$user['Price']})'>Add to Cart</button>";
                 echo "</li>";
             }
             
@@ -88,7 +88,6 @@ function removeFromCart(cartItemId) {
         </ul>
     </section>
     <div id="cartContent"></div>
-
 
     <?php include 'footer.php'; ?>
 

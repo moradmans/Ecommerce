@@ -1,78 +1,58 @@
 <?php
-error_reporting(E_ALL);
-ini_set('display_errors', '1');
 include_once "dbCon.php";
 
-class Equipment{
-    //the data base data
-    public $EquipmentID;
-    public $Price;
-    public $QTY;
-    public $Name;
-    public $Type;
-   
-    
+class EquipmentModel {
+    private $conn;
 
-    public static function listEquipment(){
-        global $conn;
-        $list = array();
+    public function __construct($conn) {
+        $this->conn = $conn;
+    }
 
-        $sql = "SELECT * FROM `equipment`";
-        $res = $conn->query($sql);
+    public function displayItems() {
+        $query = "SELECT * FROM equipment";
+        $result = $this->conn->query($query);
 
-        while($row = $res->fetch_assoc()){
-            $product = new User();
-            $product->EquipmentID = $row['EquipmentID'];
-            $product->Price = $row['Price'];
-            $product->QTY = $row['QTY'];
-            $product->Name = $row['Name'];
-            $product->Type = $row['Type'];
-           
-
-            array_push($list, $product);
+        if ($result === false) {
+            // Handle the error (e.g., log it or return an empty array)
+            return [];
         }
 
-        return $list;
+        $items = $result->fetch_all(MYSQLI_ASSOC);
+        return $items;
     }
 
-    function updateEquipment($post){
-        global $conn;
+    public function addToCart($productId, $productName, $quantity, $price) {
+        // Perform any additional validation or logic if needed
 
-        $sql = "UPDATE `equipment` SET `Price` = '".$post['Price']
-        ."', `QTY` = '".$post['QTY']
-        ."', `Name` = '".$post['Name']
-        ."', `Type` = '".$post['Type']
-        ."' WHERE `equipment`.`EquipmentID` = '" .$post['EquipmentID']. "';";
-        $conn->query($sql);
+        // Add the product to the cart table
+        $sql = "INSERT INTO cart (ProductID, ProductName, Quantity, Price) VALUES ('$productId', '$productName', '$quantity', '$price')";
+        $result = $this->conn->query($sql);
 
-       
-
+        return $result;
     }
-    function deleteEquipment($post){
-        global $conn;
 
-        $sql = "DELETE FROM `equipment` WHERE `Price` = '".$post['Price']."'
-        AND `QTY` = '".$post['QTY']."' 
-        AND `Name` = '".$post['Name']."'
-        AND `Type` = '".$post['Type']."'
-        AND  `equipment`.`EquipmentID` = '".$post['EquipmentID'] . "';";
-        $conn->query($sql);
+    public function viewCart() {
+        $query = "SELECT * FROM cart";
+        $result = $this->conn->query($query);
 
-    }
-    function addEquipment($conn, $post) {//does not work 
-        $sql = "INSERT INTO `equipment` (`Price`, `QTY`, `Name`, `Type`) VALUES (?, ?, ?, ?)";
-        $stmt = $conn->prepare($sql);
-    
-        if ($stmt) {
-            $stmt->bind_param("ssss", $post['Price'], $post['QTY'], $post['Name'], $post['Type']);
-            $stmt->execute();
-            $stmt->close();
-        } else {
-            echo "Error preparing SQL statement: " . $conn->error;
+        if ($result === false) {
+            // Handle the error (e.g., log it or return an empty array)
+            return [];
         }
+
+        $cartItems = $result->fetch_all(MYSQLI_ASSOC);
+        var_dump($cartItems);
+        return $cartItems;
+    }
+
+    public function removeFromCart($cartItemId) {
+        // Perform any additional validation or logic if needed
+
+        // Remove the item from the cart table
+        $sql = "DELETE FROM cart WHERE CartItemID = '$cartItemId'";
+        $result = $this->conn->query($sql);
+
+        return $result;
     }
 }
-
-
-
 ?>

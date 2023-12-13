@@ -20,10 +20,8 @@ class ClothingController {
         $username = $_SESSION['username'];
         $isAdmin = isset($_SESSION['type']) && ($_SESSION['type'] === 'admin');
     
-        // Call getUsers to retrieve user information
         $this->getItems();
     
-        // Pass the username, isAdmin, and users to the view
         $this->render('Clothing/clothing', ['username' => $username, 'isAdmin' => $isAdmin, 'users' => $this->users]);
     
         // Handle actions after rendering the main view

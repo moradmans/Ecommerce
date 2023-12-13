@@ -38,7 +38,7 @@ class InformationController {
     
     public function getUsers() {
         // Pass the database connection to the model
-        $dbConnection = new mysqli("localhost", "root", "", "ecomdb");
+        $dbConnection = new mysqli("localhost", "root", "", "ecommercedatabase");
         $model = new InformationModel($dbConnection); // Update the class name here
         $this->users = $model->getAllUsers();
     }
