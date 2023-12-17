@@ -1,7 +1,7 @@
 <?php
 include_once "dbCon.php";
 
-class SupplementModel {
+class ClothingModel {
     private $conn;
 
     public function __construct($conn) {
@@ -9,7 +9,7 @@ class SupplementModel {
     }
 
     public function displayItems() {
-        $query = "SELECT * FROM supplements"; // Update table name to "supplement"
+        $query = "SELECT * FROM clothing";
         $result = $this->conn->query($query);
 
         if ($result === false) {
@@ -17,10 +17,9 @@ class SupplementModel {
             return [];
         }
 
-        $items = $result->fetch_all(MYSQLI_ASSOC);
-        return $items;
+        $users = $result->fetch_all(MYSQLI_ASSOC);
+        return $users;
     }
-
     public function addToCart($productId, $productName, $quantity, $price) {
         // Perform any additional validation or logic if needed
 
@@ -30,7 +29,6 @@ class SupplementModel {
 
         return $result;
     }
-
     public function viewCart() {
         $query = "SELECT * FROM cart";
         $result = $this->conn->query($query);
@@ -54,12 +52,12 @@ class SupplementModel {
 
         return $result;
     }
-    public function addSupplement($Price, $QTY, $Name, $Type,$img){
+    public function addCloth($Price, $QTY, $Name, $Type,$img){
         global $conn;
     
         // Use prepared statement to prevent SQL injection
-        $sql = "INSERT INTO supplements (Price, QTY, Name, Type, img) VALUES (?,?,?,?,?)";
-        $stmt = $conn->prepare($sql);
+        $sql = "INSERT INTO clothing (Price, QTY, Name, Type, img) VALUES (?,?,?,?,?)";
+        $stmt = $this->conn->prepare($sql);
 
         
         $stmt->bind_param('dissb', $Price, $QTY, $Name, $Type, $img);
@@ -78,5 +76,29 @@ class SupplementModel {
         }
         
     }
+    public function delCloth($Name){
+        global $conn;
+        $sql = "DELETE FROM clothing WHERE name = ?"; 
+        $stmt = $conn->prepare($sql);
+
+        
+        $stmt->bind_param('s', $Name);
+    
+        $result = $stmt->execute();
+    
+        // Check if the execution was successful
+        if ($result) {
+            $stmt->close();
+            return true; // Assuming you want to return a boolean indicating success
+        } else {
+            // Handle the error if needed
+            echo "Error: " . $stmt->error;
+            $stmt->close();
+            return false; // Failed to delete gym
+        }
+        
+    }
 }
+
+
 ?>

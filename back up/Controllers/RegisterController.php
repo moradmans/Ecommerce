@@ -25,8 +25,6 @@ class RegisterController {
             if (!empty($_POST)) {
                 echo "POST data is being sent:";
                 var_dump($_POST);
-            } else {
-                echo "No POST data received.";
             }
     
             $model = new User();

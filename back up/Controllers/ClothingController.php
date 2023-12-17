@@ -18,6 +18,9 @@ class ClothingController {
         if ($action == 'add') {
             $this->addCloth();
         }
+        if ($action == 'del') {
+            $this->delCloth();
+        }
         // Retrieve user information from the session
         $username = $_SESSION['username'];
         $isAdmin = isset($_SESSION['type']) && ($_SESSION['type'] === 'admin');
@@ -52,7 +55,17 @@ class ClothingController {
 
             $dbConnection = new mysqli("localhost", "root", "", "ecommercedatabase");
             $model = new ClothingModel($dbConnection);
-            $loginResult = $model->addaddCloth($Price, $QTY, $Name, $Type,$img);
+            $loginResult = $model->addCloth($Price, $QTY, $Name, $Type,$img);
+            
+        }
+    }
+    public function delCloth(){
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $Name = isset($_POST['Name']) ? $_POST['Name'] : "";
+
+            $dbConnection = new mysqli("localhost", "root", "", "ecommercedatabase");
+            $model = new ClothingModel($dbConnection);
+            $loginResult = $model->delCloth($Name);
             
         }
     }

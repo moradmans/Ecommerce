@@ -1,8 +1,8 @@
 <?php
-include_once "Models/supplement.php"; // Update the include statement
+include_once "Models/equipment.php"; // Update the include statement
 include_once "dbCon.php";
 
-class SupplementController {
+class EquipmentController {
     private $users; // Add this property to store users retrieved from the model
 
     public function route() {
@@ -16,7 +16,10 @@ class SupplementController {
             exit;
         }
         if($action == "add"){
-            $this->addSupplement();
+            $this->addEquipment();
+           }
+           if($action == "del"){
+            $this->delEquipment();
            }
         // Retrieve user information from the session
         $username = $_SESSION['username'];
@@ -25,7 +28,7 @@ class SupplementController {
 
         $this->getItems();
 
-        $this->render('Supplement/supplement', ['username' => $username, 'isAdmin' => $isAdmin, 'users' => $this->users,'isAdminOrStaff' => $isAdminOrStaff]);
+        $this->render('Equipment/equipment', ['username' => $username, 'isAdmin' => $isAdmin, 'users' => $this->users,'isAdminOrStaff' => $isAdminOrStaff]);
 
         // Handle actions after rendering the main view
         if ($action == 'addToCart') {
@@ -42,7 +45,7 @@ class SupplementController {
             exit();
         }
     }
-    public function addSupplement(){
+    public function addEquipment(){
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $Price = isset($_POST['Price']) ? $_POST['Price'] : "";
             $QTY = isset($_POST['QTY']) ? $_POST['QTY'] : "";
@@ -51,15 +54,25 @@ class SupplementController {
             $img = isset($_POST['img']) ? $_POST['img'] : "";
 
             $dbConnection = new mysqli("localhost", "root", "", "ecommercedatabase");
-            $model = new SupplementModel($dbConnection);
-            $loginResult = $model->addSupplement($Price, $QTY, $Name, $Type,$img);
+            $model = new EquipmentModel($dbConnection);
+            $loginResult = $model->addEquipment($Price, $QTY, $Name, $Type,$img);
+            
+        }
+    }
+    public function delEquipment(){
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $Name = isset($_POST['Name']) ? $_POST['Name'] : "";
+
+            $dbConnection = new mysqli("localhost", "root", "", "ecommercedatabase");
+            $model = new EquipmentModel($dbConnection);
+            $loginResult = $model->delEquipment($Name);
             
         }
     }
     public function getItems() {
         // Pass the database connection to the model
         $dbConnection = new mysqli("localhost", "root", "", "ecommercedatabase");
-        $model = new SupplementModel($dbConnection); // Update the class name here
+        $model = new EquipmentModel($dbConnection); // Update the class name here
         $this->users = $model->displayItems();
     }
 
@@ -70,12 +83,12 @@ class SupplementController {
         $quantity = isset($_POST['quantity']) ? $_POST['quantity'] : '';
         $price = isset($_POST['price']) ? $_POST['price'] : '';
 
-        // Create an instance of SupplementModel
+        // Create an instance of EquipmentModel
         $dbConnection = new mysqli("localhost", "root", "", "ecommercedatabase");
-        $this->supplementModel = new SupplementModel($dbConnection);
+        $this->equipmentModel = new EquipmentModel($dbConnection);
         
         // Call the model function to add to cart
-        $result = $this->supplementModel->addToCart($productId, $productName, $quantity, $price);
+        $result = $this->equipmentModel->addToCart($productId, $productName, $quantity, $price);
 
         // Respond to the AJAX request
         if ($result) {
@@ -86,16 +99,16 @@ class SupplementController {
     }
 
     public function viewCart() {
-        // Create an instance of SupplementModel
+        // Create an instance of EquipmentModel
         $dbConnection = new mysqli("localhost", "root", "", "ecommercedatabase");
-        $this->supplementModel = new SupplementModel($dbConnection);
+        $this->equipmentModel = new EquipmentModel($dbConnection);
 
         // Call the model function to retrieve cart items
-        $cartItems = $this->supplementModel->viewCart();
+        $cartItems = $this->equipmentModel->viewCart();
 
         // Render the cart content as HTML
         ob_start();
-        include "Views/Supplement/viewCart.php";
+        include "Views/Equipment/viewCart.php";
         $cartContent = ob_get_clean();
 
         // Return the cart content
@@ -107,7 +120,7 @@ class SupplementController {
         $cartItemId = isset($_POST['cartItemId']) ? $_POST['cartItemId'] : '';
 
         // Call the model function to remove from cart
-        $result = $this->supplementModel->removeFromCart($cartItemId);
+        $result = $this->equipmentModel->removeFromCart($cartItemId);
 
         // Respond to the AJAX request
         if ($result) {

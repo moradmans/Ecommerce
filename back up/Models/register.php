@@ -62,7 +62,6 @@ class User{
                 // Registration successful
                 // You may want to add a redirect here
             } else {
-                // Handle SQL error
                 echo "Error: " . $stmt->error;
             }
 

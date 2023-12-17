@@ -10,10 +10,13 @@ class LoginController {
 
         if ($action === 'login') {
             $this->login();
-        } else {
-            // Display the login form
+        } else if($action === 'logout'){
+            session_unset();
+            $this->render('Login/login');
+        }else{
             $this->render('Login/login');
         }
+        
     }
 
     public function login() {

@@ -78,5 +78,27 @@ class EquipmentModel {
         }
         
     }
+    public function delEquipment($Name){
+        global $conn;
+        $sql = "DELETE FROM equipment WHERE name = ?"; 
+        $stmt = $conn->prepare($sql);
+
+        
+        $stmt->bind_param('s', $Name);
+    
+        $result = $stmt->execute();
+    
+        // Check if the execution was successful
+        if ($result) {
+            $stmt->close();
+            return true; // Assuming you want to return a boolean indicating success
+        } else {
+            // Handle the error if needed
+            echo "Error: " . $stmt->error;
+            $stmt->close();
+            return false; // Failed to delete gym
+        }
+        
+    }
 }
 ?>

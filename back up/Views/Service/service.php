@@ -325,10 +325,10 @@
     <div id="gymForm">
         <h2>Add a New Services</h2>
         <form action="index.php?controller=service&action=add" method="post" onsubmit="addService(event)">
-            <label for="Name">First Name of Service:</label>
+            <label for="fName">First Name of Service:</label>
             <input type="text" id="fName" name="fName" required>
 
-            <label for="Price">Last Name of Service:</label>
+            <label for="lName">Last Name of Service:</label>
             <input type="text" id="lName" name="lName" required>
 
             <label for="Type">Username:</label>
@@ -338,12 +338,26 @@
             <input type="text" id="Email" name="Email" required>
 
             <label for="QTY">Job:</label>
-            <input type="text" id="Job" name="Job" required>y
+            <input type="text" id="Job" name="Job" required>
 
             <label for="QTY">Price:</label>
             <input type="text" id="Price" name="Price" required>
 
-            <button type="submit" name="addService">Add Equipment</button>
+            <button type="submit" name="addService">Add Service</button>
+        </form>
+    </div>
+<?php endif; ?>
+<?php if ($isAdminOrStaff) : ?>
+    <div id="gymForm">
+        <h2>Delete a Services</h2>
+        <form action="index.php?controller=service&action=del" method="post" onsubmit="delService(event)">
+            <label for="Name">First Name of Service:</label>
+            <input type="text" id="fName" name="fName" required>
+
+            <label for="Price">Last Name of Service:</label>
+            <input type="text" id="lName" name="lName" required>
+
+            <button type="submit" name="delService">Delete Service</button>
         </form>
     </div>
 <?php endif; ?>

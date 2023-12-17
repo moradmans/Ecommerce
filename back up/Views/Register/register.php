@@ -14,7 +14,7 @@ ini_set('display_errors', 1);
     <div class="container mt-5">
         <div class="col-md-6 offset-md-3 bg-white p-4 rounded">
             <h1 class="text-center mb-4">Register</h1>
-            <form method="post" action="index.php?controller=register&action=register">
+            <form method="post" action="index.php?controller=register&action=register" onsubmit="return validateForm()">
 
                 <div class="form-group">
                     <label for="fname">First Name:</label>
@@ -42,6 +42,12 @@ ini_set('display_errors', 1);
                 </div>
 
                 <div class="form-group">
+                    <label for="confirmPass">Confirm Password:</label>
+                    <input type="password" id="confirmPass" name="confirmPass" class="form-control" oninput="validatePassword()" required>
+                    <small id="passwordHelp" class="form-text text-danger"></small>
+                </div>
+
+                <div class="form-group">
                     <label for="address">Address:</label>
                     <input type="text" id="address" name="address" class="form-control" required>
                 </div>
@@ -56,7 +62,7 @@ ini_set('display_errors', 1);
                     <input type="text" id="phone" name="phone" class="form-control" required>
                 </div>
 
-                <button type="submit" class="btn btn-primary btn-block">Register</button>
+                <button type="submit" id="submitButton" class="btn btn-primary btn-block" disabled>Register</button>
             </form>
 
             <a href="index.php?controller=login&action=login" class="btn btn-secondary btn-block mt-3">Go Back To Login</a>
@@ -67,6 +73,33 @@ ini_set('display_errors', 1);
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.8/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        function validatePassword() {
+            var password = document.getElementById("pass").value;
+            var confirmPassword = document.getElementById("confirmPass").value;
+            var passwordHelp = document.getElementById("passwordHelp");
+            var submitButton = document.getElementById("submitButton");
 
+            if (password !== confirmPassword) {
+                passwordHelp.textContent = "Passwords do not match";
+                submitButton.disabled = true;
+            } else {
+                passwordHelp.textContent = "";
+                submitButton.disabled = false;
+            }
+        }
+
+        function validateForm() {
+            var password = document.getElementById("pass").value;
+            var confirmPassword = document.getElementById("confirmPass").value;
+
+            if (password !== confirmPassword) {
+                alert("Passwords do not match");
+                return false;
+            }
+
+            return true;
+        }
+    </script>
 </body>
 </html>

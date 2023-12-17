@@ -23,7 +23,10 @@ class ServiceController {
         }
         if($action == "add"){
             $this->addServices();
-           }
+        }
+        if($action == "del"){
+            $this->delServices();
+        }
         // Retrieve user information from the session
         $username = $_SESSION['username'];
         $isAdmin = isset($_SESSION['type']) && ($_SESSION['type'] === 'admin');
@@ -56,6 +59,17 @@ class ServiceController {
             $dbConnection = new mysqli("localhost", "root", "", "ecommercedatabase");
             $model = new ServiceModel($dbConnection);
             $loginResult = $model->addService($fName, $lName, $Username, $Email,$Job,$Price);
+            
+        }
+    }
+    public function delServices(){
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $fName = isset($_POST['fName']) ? $_POST['fName'] : "";
+            $lName = isset($_POST['lName']) ? $_POST['lName'] : "";
+
+            $dbConnection = new mysqli("localhost", "root", "", "ecommercedatabase");
+            $model = new ServiceModel($dbConnection);
+            $loginResult = $model->delService($fName, $lName);
             
         }
     }

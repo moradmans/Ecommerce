@@ -111,6 +111,17 @@ function removeFromCart(cartItemId) {
         </form>
     </div>
 <?php endif; ?>
+<?php if ($isAdminOrStaff) : ?>
+    <div id="gymForm">
+        <h2>Delete a Equipment</h2>
+        <form action="index.php?controller=equipment&action=del" method="post" onsubmit="delEquipment(event)">
+            <label for="Name">Name of the product:</label>
+            <input type="text" id="Name" name="Name" required>
+
+            <button type="submit" name="delEquipment">Delete Equipment</button>
+        </form>
+    </div>
+<?php endif; ?>
     <?php include 'footer.php'; ?>
 
 </body>
